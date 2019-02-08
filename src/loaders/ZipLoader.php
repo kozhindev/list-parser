@@ -1,6 +1,6 @@
 <?php
 
-namespace src\loaders;
+namespace kozhindev\ListParser\loaders;
 
 use yii\base\Exception;
 use yii\helpers\FileHelper;

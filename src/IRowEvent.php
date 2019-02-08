@@ -1,6 +1,6 @@
 <?php
 
-namespace src;
+namespace kozhindev\ListParser;
 
 /**
  * @property-read array $row

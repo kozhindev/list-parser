@@ -1,9 +1,9 @@
 <?php
 
-namespace src\parsers;
+namespace kozhindev\ListParser\parsers;
 
-use src\ILogEvent;
-use src\IRowEvent;
+use kozhindev\ListParser\ILogEvent;
+use kozhindev\ListParser\IRowEvent;
 use yii\base\BaseObject;
 use yii\helpers\ArrayHelper;
 

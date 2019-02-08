@@ -1,8 +1,8 @@
 <?php
 
-namespace src\loaders;
+namespace kozhindev\ListParser\loaders;
 
-use src\ILogEvent;
+use kozhindev\ListParser\ILogEvent;
 use yii\base\BaseObject;
 
 abstract class BaseLoader extends BaseObject

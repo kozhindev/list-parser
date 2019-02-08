@@ -1,6 +1,6 @@
 <?php
 
-namespace src\parsers;
+namespace kozhindev\ListParser\parsers;
 
 use Exception;
 
