@@ -1,0 +1,13 @@
+{
+    "name": "kozhindev/list-parser",
+    "require": {
+        "phpoffice/phpexcel": "^1.8",
+        "yiisoft/yii2": "~2.0.15"
+    },
+    "authors": [
+        {
+            "name": "aleksandr bogatikov",
+            "email": "perlexed@gmail.com"
+        }
+    ]
+}
