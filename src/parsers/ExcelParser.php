@@ -2,8 +2,10 @@
 
 namespace kozhindev\ListParser\parsers;
 
-use PHPExcel_IOFactory;
-use PHPExcel_Reader_Exception;
+use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
+use PhpOffice\PhpSpreadsheet\IOFactory;
+use PhpOffice\PhpSpreadsheet\Reader\Exception as ReaderException;
+
 use Exception;
 
 class ExcelParser extends BaseParser
@@ -12,6 +14,8 @@ class ExcelParser extends BaseParser
      * @inheritdoc
      */
     public $template = '/\.(xlsx|xlsm|xltx|xltm|xls|xlt|ods|ots|slk|xml|gnumeric|htm|html|csv)$/';
+
+    public $limitColumnsRange = false;
 
     /**
      * @inheritdoc
@@ -28,8 +32,8 @@ class ExcelParser extends BaseParser
 
         // Open file
         try {
-            $excel = PHPExcel_IOFactory::load($path);
-        } catch (PHPExcel_Reader_Exception $e) {
+            $excel = IOFactory::load($path);
+        } catch (ReaderException $e) {
             return $this->error($e->getMessage());
         } catch (Exception $e) {
             return $this->error('Ошибка при открытии excel файла');
@@ -39,7 +43,20 @@ class ExcelParser extends BaseParser
         $sheets = [];
         $totalCount = 0;
         foreach ($excel->getSheetNames() as $name) { // lists
-            foreach ($excel->getSheetByName($name)->toArray() as $row) {
+            $currentSheet = $excel->getSheetByName($name);
+
+            if ($this->limitColumnsRange) {
+                // Select only first not null columns
+                $firstRow = $currentSheet->rangeToArray('A1:' . $currentSheet->getHighestColumn() . '1')[0];
+                $lastColumnIndex = static::getLastNotNullIndex($firstRow);
+                $range = 'A1:' . Coordinate::stringFromColumnIndex($lastColumnIndex +1) . $currentSheet->getHighestRow();
+
+                $sheetData = $currentSheet->rangeToArray($range);
+            } else {
+                $sheetData = $currentSheet->toArray();
+            }
+
+            foreach ($sheetData as $row) {
                 foreach ($row as $value) {
                     if ($value !== null) {
                         $sheets[$name][] = $row;
@@ -59,5 +76,39 @@ class ExcelParser extends BaseParser
         }
 
         return true;
+    }
+
+    public static function getLastNotNullIndex($array, $validateCallback = null)
+    {
+        $step = 10;
+        $keys = array_keys($array);
+        $startIndex = 0;
+        $lastNotNullIndex = null;
+
+        do {
+            $allValuesInStepAreNull = true;
+
+            for ($index = $startIndex; $index < $step + $startIndex; $index++) {
+                if (!isset($keys[$index])) {
+                    break;
+                }
+
+                $value = $array[$keys[$index]];
+
+                $isNull = is_callable($validateCallback)
+                    ? call_user_func($validateCallback, $value)
+                    : $value === null;
+
+                if (!$isNull) {
+                    $lastNotNullIndex = $keys[$index];
+                }
+
+                $allValuesInStepAreNull = $allValuesInStepAreNull && $isNull;
+            }
+
+            $startIndex += $step;
+        } while (!$allValuesInStepAreNull);
+
+        return $lastNotNullIndex;
     }
 }
