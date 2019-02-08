@@ -1,7 +1,8 @@
 <?php
 
-namespace app\loaders;
+namespace src\loaders;
 
+use yii\base\Exception;
 use yii\helpers\FileHelper;
 use ZipArchive;
 
@@ -14,6 +15,7 @@ class ZipLoader extends BaseLoader
 
     /**
      * @inheritdoc
+     * @throws Exception
      */
     public function load($path)
     {

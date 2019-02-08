@@ -1,9 +1,9 @@
 <?php
 
-namespace app\parsers;
+namespace src\parsers;
 
-use app\ILogEvent;
-use app\IRowEvent;
+use src\ILogEvent;
+use src\IRowEvent;
 use yii\base\BaseObject;
 use yii\helpers\ArrayHelper;
 

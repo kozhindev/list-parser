@@ -1,6 +1,6 @@
 <?php
 
-namespace app;
+namespace src;
 
 /**
  * @property-read string $level

@@ -1,6 +1,6 @@
 <?php
 
-namespace app\parsers;
+namespace src\parsers;
 
 use Exception;
 

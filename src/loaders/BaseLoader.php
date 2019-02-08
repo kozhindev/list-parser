@@ -1,8 +1,8 @@
 <?php
 
-namespace app\loaders;
+namespace src\loaders;
 
-use app\ILogEvent;
+use src\ILogEvent;
 use yii\base\BaseObject;
 
 abstract class BaseLoader extends BaseObject

@@ -1,6 +1,7 @@
 {
     "name": "kozhindev/list-parser",
     "require": {
+        "ext-zip": "*",
         "phpoffice/phpexcel": "^1.8",
         "yiisoft/yii2": "~2.0.15"
     },
@@ -9,5 +10,10 @@
             "name": "aleksandr bogatikov",
             "email": "perlexed@gmail.com"
         }
-    ]
+    ],
+    "autoload": {
+        "psr-4": {
+            "kozhindev\\ListParser\\": "src"
+        }
+    }
 }
