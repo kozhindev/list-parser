@@ -1,5 +1,7 @@
 {
     "name": "kozhindev/list-parser",
+    "type": "library",
+    "description": "",
     "require": {
         "ext-zip": "*",
         "phpoffice/phpexcel": "^1.8",
