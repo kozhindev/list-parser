@@ -66,7 +66,7 @@ class CsvParser extends BaseParser
         // Get rows
         $index = 0;
         rewind($file);
-        while($rowData = fgetcsv($file,1024, $delimiter)) {
+        while($rowData = fgetcsv($file,8192, $delimiter)) {
             $this->addRow($rowData, $index++, $path, 'Worksheet');
         }
 
