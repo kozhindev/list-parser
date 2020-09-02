@@ -4,7 +4,7 @@
     "description": "",
     "require": {
         "ext-zip": "*",
-        "phpoffice/phpspreadsheet": "^1.6",
+        "phpoffice/phpspreadsheet": "^1.14",
         "yiisoft/yii2": "~2.0.15"
     },
     "authors": [
